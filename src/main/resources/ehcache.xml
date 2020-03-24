@@ -1,0 +1,36 @@
+<ehcache updateCheck="false" name="cacheManager">
+
+    <cacheManagerPeerProviderFactory
+            class="net.sf.ehcache.distribution.RMICacheManagerPeerProviderFactory"
+            properties="
+            peerDiscovery=automatic,
+            multicastGroupAddress=230.0.0.1,
+            multicastGroupPort=4446,
+            timeToLive=32"/>
+
+    <!--             hostName=localhost, -->
+    <cacheManagerPeerListenerFactory
+            class="net.sf.ehcache.distribution.RMICacheManagerPeerListenerFactory"
+            properties="
+            port=40001,
+            socketTimeoutMillis=2000"/>
+
+    <!-- EhCache store path -->
+    <diskStore path="java.io.tmpdir"/>
+
+    <cache name="inMemoryFeatures"
+           maxElementsInMemory="100"
+           eternal="false"
+           timeToIdleSeconds="600"
+           timeToLiveSeconds="3600"
+           overflowToDisk="false"
+           diskPersistent="false">
+        <cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+                                   properties="
+                                   replicateAsynchronously=true,
+                                   replicatePuts=true,
+                                   replicateUpdates=true,
+                                   replicateUpdatesViaCopy=true,
+                                   replicateRemovals=true"/>
+    </cache>
+</ehcache>

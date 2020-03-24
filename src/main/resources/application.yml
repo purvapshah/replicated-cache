@@ -1,0 +1,11 @@
+
+spring:
+  devtools:
+    restart:
+      trigger-file: .reloadtrigger
+
+logging:
+  level:
+    root: INFO
+    net.sf.ehcache.distribution.MulticastKeepaliveHeartbeatReceiver: ERROR
+    net.sf.ehcache: DEBUG
